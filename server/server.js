@@ -1,5 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const routes = require('./routes/userRoute')
+const todoroutes = require('./routes/todoRoute')
+const verifyJWT = require('./middleware/verifyJWT')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -16,6 +19,12 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(express.json())
 app.use(cors())
+
+app.use('/api', routes)
+
+app.use(verifyJWT)
+
+app.use('/api', todoroutes)
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`)
