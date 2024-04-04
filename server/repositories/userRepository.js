@@ -20,6 +20,16 @@ class UserRepository{
             throw new Error(`Find user error ${error}`)
         }
     }
+
+    async findUserById(id){
+        try{
+            const user = await User.findById(id)
+            return user
+        }
+        catch(error){
+            throw new Error(`Find user by id error ${error}`)
+        }
+    }
 }
 
 module.exports = new UserRepository
